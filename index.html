@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Q-Table - Reinforcement Learning</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+
+  <body>
+    <canvas id="board" width="300" height="600"></canvas>
+
+    <div id="UI">
+      <h3>Controles</h3>
+      <button id="btn-draw">Pintar Path</button>
+      <button id="btn-erase">Borrar Path</button>
+      <hr />
+      <h3>Estadísticas</h3>
+      <p>Pasos: <span id="stat-steps">0</span></p>
+      <p>Muertes: <span id="stat-deaths">0</span></p>
+    </div>
+
+    <script type="module" src="./game/BoardOrquestator.js"></script>
+  </body>
+</html>
