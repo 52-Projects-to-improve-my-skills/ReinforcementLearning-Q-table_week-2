@@ -25,15 +25,15 @@ export function createAIController({
     const actionIndex = brain.chooseAction(currentState.x, currentState.y);
     const action = ACTIONS[actionIndex];
 
-    const newX = currentState.x + action.x;
-    const newY = currentState.y + action.y;
+    const nextPositionX = currentState.x + action.x;
+    const nextPositionY = currentState.y + action.y;
 
     let reward = REWARD.STEP;
-    let nextState = { x: newX, y: newY };
+    let nextState = { x: nextPositionX, y: nextPositionY };
 
     if (
-      !isValidCell(newX, newY) ||
-      boardMatrix[newX][newY] === BOARD_STATES.states.DEAD_CELL
+      !isValidCell(nextPositionX, nextPositionY) ||
+      boardMatrix[nextPositionX][nextPositionY] === BOARD_STATES.states.DEAD_CELL
     ) {
       reward = REWARD.DEATH;
       nextState = { ...startPoint };
@@ -41,21 +41,21 @@ export function createAIController({
       currentEpisodeSteps = 0;
       episodes++;
 
-      if (isValidCell(newX, newY)) {
-        playerCtrl.movePlayer(newX, newY);
+      if (isValidCell(nextPositionX, nextPositionY)) {
+        playerCtrl.movePlayer(nextPositionX, nextPositionY);
       } else {
         playerCtrl.resetToStart();
       }
       onRender();
       onEpisodeEnd({ episodes, successSteps: [...successSteps], episodeSteps: [...episodeSteps] });
-    } else if (boardMatrix[newX][newY] === BOARD_STATES.states.END_CELL) {
+    } else if (boardMatrix[nextPositionX][nextPositionY] === BOARD_STATES.states.END_CELL) {
       reward = REWARD.GOAL;
       nextState = { ...startPoint };
       successSteps.push(currentEpisodeSteps);
       episodeSteps.push(currentEpisodeSteps);
       currentEpisodeSteps = 0;
       episodes++;
-      playerCtrl.movePlayer(newX, newY);
+      playerCtrl.movePlayer(nextPositionX, nextPositionY);
       onRender();
       onEpisodeEnd({ episodes, successSteps: [...successSteps], episodeSteps: [...episodeSteps] });
     } else {
@@ -82,7 +82,7 @@ export function createAIController({
   }
 
   function saveQTable() {
-    const blob = new Blob([JSON.stringify(brain.table, null, 2)], {
+    const blob = new Blob([JSON.stringify(brain.qTable, null, 2)], {
       type: "application/json",
     });
     const url = URL.createObjectURL(blob);
@@ -98,7 +98,7 @@ export function createAIController({
       const reader = new FileReader();
       reader.onload = (ev) => {
         try {
-          brain.table = JSON.parse(ev.target.result);
+          brain.qTable = JSON.parse(ev.target.result);
           resolve();
         } catch {
           console.error("Q-Table JSON inválido");

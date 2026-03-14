@@ -15,9 +15,9 @@ window.totalVerticalCells = 10;
 
 window.onload = function () {
   const canvas = document.getElementById("board");
-  const context = canvas.getContext("2d");
+  const canvasContext = canvas.getContext("2d");
   const cellSize = canvas.width / totalHorizontalCells;
-  let mode = "draw";
+  let editMode = "draw";
   const startPoint = { x: 2, y: 9 };
 
   const boardMatrix = createBoardMatrix(totalVerticalCells, totalHorizontalCells);
@@ -53,35 +53,35 @@ window.onload = function () {
   });
 
   function render() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    drawBoard(context, canvas);
+    canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+    drawBoard(canvasContext, canvas);
 
-    forEachCell((x, y) => {
-      const cellState = boardMatrix[x][y];
+    forEachCell((cellX, cellY) => {
+      const cellState = boardMatrix[cellX][cellY];
       if (cellState !== BOARD_STATES.states.DEAD_CELL) {
-        drawSquare(context, cellSize, { x, y }, STATE_COLOR[cellState]);
+        drawSquare(canvasContext, cellSize, { x: cellX, y: cellY }, STATE_COLOR[cellState]);
       }
     });
     drawSquare(
-      context,
+      canvasContext,
       cellSize,
       playerCtrl.getPosition(),
       STATE_COLOR[BOARD_STATES.states.PLAYER_CELL],
     );
   }
 
-  document.getElementById("btn-draw").onclick = () => (mode = "draw");
-  document.getElementById("btn-erase").onclick = () => (mode = "erase");
+  document.getElementById("btn-draw").onclick = () => (editMode = "draw");
+  document.getElementById("btn-erase").onclick = () => (editMode = "erase");
 
-  hoveredCell(canvas, cellSize, (hovered) => {
-    forEachCell((x, y) => {
-      if (boardMatrix[x][y] === BOARD_STATES.states.HOVERED_CELL) {
-        boardMatrix[x][y] = BOARD_STATES.states.DEAD_CELL;
+  hoveredCell(canvas, cellSize, (hoveredCellCoords) => {
+    forEachCell((cellX, cellY) => {
+      if (boardMatrix[cellX][cellY] === BOARD_STATES.states.HOVERED_CELL) {
+        boardMatrix[cellX][cellY] = BOARD_STATES.states.DEAD_CELL;
       }
     });
-    if (isValidCell(hovered.x, hovered.y)) {
-      if (boardMatrix[hovered.x][hovered.y] === BOARD_STATES.states.DEAD_CELL) {
-        boardMatrix[hovered.x][hovered.y] = BOARD_STATES.states.HOVERED_CELL;
+    if (isValidCell(hoveredCellCoords.x, hoveredCellCoords.y)) {
+      if (boardMatrix[hoveredCellCoords.x][hoveredCellCoords.y] === BOARD_STATES.states.DEAD_CELL) {
+        boardMatrix[hoveredCellCoords.x][hoveredCellCoords.y] = BOARD_STATES.states.HOVERED_CELL;
       }
     }
     const stats = playerCtrl.getStats();
@@ -89,15 +89,15 @@ window.onload = function () {
     render();
   });
 
-  clickDetection(canvas, cellSize, (selected) => {
+  clickDetection(canvas, cellSize, (selectedCellCoords) => {
     if (
-      (selected.x === 2 && selected.y === 9) ||
-      (selected.x === 2 && selected.y === 0)
+      (selectedCellCoords.x === 2 && selectedCellCoords.y === 9) ||
+      (selectedCellCoords.x === 2 && selectedCellCoords.y === 0)
     )
       return;
 
-    boardMatrix[selected.x][selected.y] =
-      mode === "draw"
+    boardMatrix[selectedCellCoords.x][selectedCellCoords.y] =
+      editMode === "draw"
         ? BOARD_STATES.states.PATH_CELL
         : BOARD_STATES.states.DEAD_CELL;
 
@@ -107,9 +107,9 @@ window.onload = function () {
   });
 
   keyboardControls((direction) => {
-    const pos = playerCtrl.getPosition();
-    const newX = pos.x + direction.x;
-    const newY = pos.y + direction.y;
+    const currentPlayerPosition = playerCtrl.getPosition();
+    const newX = currentPlayerPosition.x + direction.x;
+    const newY = currentPlayerPosition.y + direction.y;
     if (isValidCell(newX, newY)) {
       playerCtrl.movePlayer(newX, newY);
       const stats = playerCtrl.getStats();

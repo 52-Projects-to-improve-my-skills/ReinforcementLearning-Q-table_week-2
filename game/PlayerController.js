@@ -3,32 +3,32 @@
 import { BOARD_STATES } from "./BoardStates.js";
 
 export function createPlayerController({ boardMatrix, startPoint }) {
-  let playerPos = { ...startPoint };
+  let playerPosition = { ...startPoint };
   let stats = { steps: 0, deaths: 0 };
 
-  function movePlayer(newX, newY) {
-    const targetState = boardMatrix[newX][newY];
+  function movePlayer(targetX, targetY) {
+    const targetState = boardMatrix[targetX][targetY];
 
     if (targetState === BOARD_STATES.states.DEAD_CELL) {
       stats.deaths++;
-      playerPos = { ...startPoint };
+      playerPosition = { ...startPoint };
       stats.steps = 0;
     } else if (targetState === BOARD_STATES.states.END_CELL) {
-      playerPos = { ...startPoint };
+      playerPosition = { ...startPoint };
       stats.steps = 0;
     } else {
-      playerPos = { x: newX, y: newY };
+      playerPosition = { x: targetX, y: targetY };
       stats.steps++;
     }
   }
 
   function resetToStart() {
-    playerPos = { ...startPoint };
+    playerPosition = { ...startPoint };
     stats.steps = 0;
   }
 
   function getPosition() {
-    return { ...playerPos };
+    return { ...playerPosition };
   }
 
   function getStats() {

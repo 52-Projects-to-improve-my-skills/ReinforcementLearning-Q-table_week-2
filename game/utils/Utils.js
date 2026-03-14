@@ -1,7 +1,7 @@
 export function forEachCell(callback) {
-    for (let x = 0; x < totalHorizontalCells; x++) {
-      for (let y = 0; y < totalVerticalCells; y++) {
-        callback(x, y);
+    for (let cellX = 0; cellX < totalHorizontalCells; cellX++) {
+      for (let cellY = 0; cellY < totalVerticalCells; cellY++) {
+        callback(cellX, cellY);
       }
     }
   }
@@ -20,9 +20,9 @@ export function getCellCoordinates(event, cellSize) {
 }
 
 export function updateUI(steps, deaths) {
-    const stepsElement = document.getElementById("stat-steps");
-    const deathsElement = document.getElementById("stat-deaths");
+    const stepsDisplay = document.getElementById("stat-steps");
+    const deathsDisplay = document.getElementById("stat-deaths");
 
-    if (stepsElement) stepsElement.textContent = steps;
-    if (deathsElement) deathsElement.textContent = deaths;
+    if (stepsDisplay) stepsDisplay.textContent = steps;
+    if (deathsDisplay) deathsDisplay.textContent = deaths;
 }
