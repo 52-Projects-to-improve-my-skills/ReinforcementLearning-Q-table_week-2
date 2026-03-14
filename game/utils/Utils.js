@@ -18,3 +18,11 @@ export function getCellCoordinates(event, cellSize) {
     y: Math.floor(event.offsetY / cellSize),
   };
 }
+
+export function updateUI(stats) {
+    const stepsElement = document.getElementById("stat-steps");
+    const deathsElement = document.getElementById("stat-deaths");
+
+    if (stepsElement) stepsElement.textContent = stats.steps;
+    if (deathsElement) deathsElement.textContent = stats.deaths;
+}
