@@ -50,7 +50,7 @@ Part of 52 projects to improve programming skills - Week 2
 - **Robotics Simulations**: Implementing basic navigation logic for autonomous agents in simulated environments.
 
 ## Where would I like to try it?
-- I'm interested in applying these RL concepts using **Python with TensorFlow or PyTorch** to move from Q-Tables to Deep Q-Networks (DQN) for more complex state spaces.
+- I'm interested in applying these RL concepts using **GODOT and 3D environments, as well as microcontrollers and robotics** to move from Q-Tables to Deep Q-Networks (DQN) for more complex state spaces.
 - Implementing a similar agent in a 3D environment using **Three.js** to explore spatial navigation.
 
 ## Final Reflection

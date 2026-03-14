@@ -50,7 +50,7 @@ Parte de 52 proyectos para mejorar habilidades de programación - Semana 2
 - **Simulaciones de Robótica**: Implementar lógicas básicas de navegación para agentes autónomos en entornos simulados.
 
 ## ¿Dónde me gustaría probarlo?
-- Tengo interés en aplicar estos conceptos de RL usando **Python con TensorFlow o PyTorch** para pasar de Q-Tables a Redes Q Profundas (DQN) en espacios de estados más complejos.
+- Tengo interés en aplicar estos conceptos de RL usando **GODOT y entornos 3D, además de microcontroladores y robótica** para luego pasar de Q-Tables a Redes Q Profundas (DQN) en espacios de estados más complejos.
 - Implementar un agente similar en un entorno 3D usando **Three.js** para explorar la navegación espacial.
 
 ## Reflexión Final
