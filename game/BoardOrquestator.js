@@ -24,7 +24,6 @@ window.onload = function () {
   boardMatrix[2][9] = BOARD_STATES.states.START_CELL;
   boardMatrix[2][0] = BOARD_STATES.states.END_CELL;
 
-  // — Controladores —
   const playerCtrl = createPlayerController({ boardMatrix, startPoint });
   const brain = new Qtable(totalHorizontalCells, totalVerticalCells, ACTIONS.length);
 
@@ -53,7 +52,6 @@ window.onload = function () {
     },
   });
 
-  // — Render —
   function render() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawBoard(context, canvas);
@@ -72,7 +70,6 @@ window.onload = function () {
     );
   }
 
-  // — Controles de tablero —
   document.getElementById("btn-draw").onclick = () => (mode = "draw");
   document.getElementById("btn-erase").onclick = () => (mode = "erase");
 
@@ -121,7 +118,6 @@ window.onload = function () {
     }
   });
 
-  // — Controles de IA —
   document.getElementById("input-epsilon").oninput = (e) => {
     brain.epsilon = Math.min(1, Math.max(0, Number(e.target.value)));
   };
@@ -147,7 +143,6 @@ window.onload = function () {
     if (file) aiCtrl.loadQTable(file);
   };
 
-  // — Inicio —
   const stats = playerCtrl.getStats();
   updateUI(stats.steps, stats.deaths);
   render();
