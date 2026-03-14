@@ -3,8 +3,9 @@
 import { drawBoard, drawSquare, clearSquare } from "./BoardRender.js";
 import { hoveredCell, clickDetection, keyboardControls } from "./BoardInputs.js";
 import { BOARD_STATES, STATE_COLOR, createBoardMatrix } from "./BoardStates.js";
-
 import { forEachCell, isValidCell, updateUI } from "./utils/Utils.js";
+import { Qtable } from "../agent/Qtable.js";
+import { ACTIONS, REWARD, DELAY } from "./configs/Configs.js";
 
 window.totalHorizontalCells = 5;
 window.totalVerticalCells = 10;
@@ -106,6 +107,57 @@ window.onload = function () {
       movePlayer(newX, newY);
     }
   });
+
+  const brain = new Qtable(totalHorizontalCells, totalVerticalCells, ACTIONS.length);
+  let aiInterval = null;
+
+  document.getElementById("btn-start-ai").onclick = () => {
+    if (aiInterval) {
+      clearInterval(aiInterval);
+      aiInterval = null;
+      document.getElementById("btn-start-ai").textContent = "Iniciar IA";
+    } else {
+      const delay = Number(document.getElementById("input-delay").value) || DELAY;
+      aiInterval = setInterval(startAI, delay);
+      document.getElementById("btn-start-ai").textContent = "Detener IA";
+    }
+  };
+
+  // ======================================//
+  function startAI() {
+    const currentState = { ...playerPos };
+
+    const actionIndex = brain.chooseAction(currentState.x, currentState.y);
+    const action = ACTIONS[actionIndex];
+
+    const newX = currentState.x + action.x;
+    const newY = currentState.y + action.y;
+
+    let reward = REWARD.STEP;
+    let nextState = { x: newX, y: newY };
+
+    if (!isValidCell(newX, newY) || boardMatrix[newX][newY] === BOARD_STATES.states.DEAD_CELL) {
+      reward = REWARD.DEATH;
+      nextState = { ...startPoint };
+      if (isValidCell(newX, newY)) {
+        movePlayer(newX, newY);
+      } else {
+        stats.deaths++;
+        stats.steps = 0;
+        playerPos = { ...startPoint };
+        updateUI(stats.steps, stats.deaths);
+        render();
+      }
+    } else if (boardMatrix[newX][newY] === BOARD_STATES.states.END_CELL) {
+      reward = REWARD.GOAL;
+      movePlayer(newX, newY);
+      nextState = { ...startPoint };
+    } else {
+      movePlayer(newX, newY);
+    }
+
+    brain.learn(currentState, actionIndex, reward, nextState);
+  }
 
   updateUI(stats.steps, stats.deaths);
   render();

@@ -19,10 +19,10 @@ export function getCellCoordinates(event, cellSize) {
   };
 }
 
-export function updateUI(stats) {
+export function updateUI(steps, deaths) {
     const stepsElement = document.getElementById("stat-steps");
     const deathsElement = document.getElementById("stat-deaths");
 
-    if (stepsElement) stepsElement.textContent = stats.steps;
-    if (deathsElement) deathsElement.textContent = stats.deaths;
+    if (stepsElement) stepsElement.textContent = steps;
+    if (deathsElement) deathsElement.textContent = deaths;
 }
