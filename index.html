@@ -16,14 +16,29 @@
       <button id="btn-erase">Borrar Path</button>
       <hr />
       <h3>Estadísticas</h3>
+      <p>Episodios: <span id="stat-episodes">0</span></p>
       <p>Pasos: <span id="stat-steps">0</span></p>
       <p>Muertes: <span id="stat-deaths">0</span></p>
+      <p>Mín. pasos (meta): <span id="stat-min-steps">—</span></p>
+      <p>Media pasos (meta): <span id="stat-avg-steps">—</span></p>
       <hr />
       <h3>IA</h3>
       <label for="input-delay">Delay (ms):</label>
-      <input id="input-delay" type="number" value="200" min="50" step="50" />
+      <input id="input-delay" type="number" value="200" min="10" step="10" />
+      <br />
+      <label for="input-epsilon">Epsilon (ε):</label>
+      <input id="input-epsilon" type="number" value="0.1" min="0" max="1" step="0.01" />
       <br /><br />
       <button id="btn-start-ai">Iniciar IA</button>
+      <br /><br />
+      <button id="btn-save">Guardar Q-Table</button>
+      <button id="btn-load">Cargar Q-Table</button>
+      <input id="input-load" type="file" accept=".json" style="display:none" />
+    </div>
+
+    <div id="chart-container">
+      <h3>Métricas en tiempo real</h3>
+      <canvas id="chart" width="700" height="220"></canvas>
     </div>
 
     <script type="module" src="./game/BoardOrquestator.js"></script>
