@@ -463,12 +463,10 @@ REWARD: {
 
 ### Q: How do I export/save the Q-Table?
 
-**Current**: Project doesn't include persistence GUI.
+**GUI (Recommended)**: The project include a "Save Q-Table" button that downloads the current Q-Table as JSON.
 
-**Manual**: Open browser console (F12) and run:
-```javascript
-console.log(JSON.stringify(aiController.qtable.qTable));
-// Copy output for manual save
+1. **Save Q-Table**: Click the button to download `qtable.json`
+2. **Load Q-Table**: Use the "Load Q-Table" button to upload a previously saved JSON file.
 ```
 
 ### Q: Can I use this with keyboard-only control?

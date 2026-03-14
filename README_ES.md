@@ -464,12 +464,20 @@ REWARD: {
 
 ### P: ¿Cómo exporto/guardo la Q-Table?
 
-**Actual**: Proyecto no incluye GUI para persistencia.
+**GUI (Recomendado)**: El proyecto incluye botones integrados para guardar y cargar:
 
-**Manual**: Abre consola navegador (F12) y ejecuta:
+1. **Guardar Q-Table**: Haz clic en el botón **"Guardar Q-Table"** en la interfaz
+   - Descargará un archivo `qtable.json` con tu Q-Table actual
+   - Puedes guardar múltiples versiones con nombres diferentes
+
+2. **Cargar Q-Table**: Haz clic en el botón **"Cargar Q-Table"** en la interfaz
+   - Selecciona un archivo `qtable.json` previamente descargado
+   - La Q-Table se restaurará instantáneamente (sin perder estado)
+
+**Manual (Alternativa)**: Si prefieres exportar manualmente desde consola:
 ```javascript
 console.log(JSON.stringify(aiController.qtable.qTable));
-// Copia salida para guardar manualmente
+// Copia toda la salida y guarda en archivo .json
 ```
 
 ### P: ¿Puedo usar esto con control solo teclado?
@@ -505,10 +513,11 @@ console.log(JSON.stringify(aiController.qtable.qTable));
 - ✅ Algoritmo Q-Learning central
 - ✅ Edición tablero interactiva
 - ✅ Métricas rendimiento en tiempo real
+- ✅ **Almacenamiento Persistente**: Guardar/cargar Q-Tables (descarga/carga JSON)
 
 ### Mejoras Potenciales
 - [ ] **Deep Q-Networks (DQN)**: Manejar espacios estado más grandes/basados imagen
-- [ ] **Almacenamiento Persistente**: Guardar/cargar Q-Tables desde localStorage
+- [ ] **Persistencia Automática**: Almacenamiento en localStorage para guardar automático
 - [ ] **Multi-Agente**: Agentes compitiendo o cooperando
 - [ ] **Entorno 3D**: Extensión a Three.js para navegación espacial
 - [ ] **GUI Ajuste Hiperparámetros**: Modificar α, γ, ε sin cambiar código
