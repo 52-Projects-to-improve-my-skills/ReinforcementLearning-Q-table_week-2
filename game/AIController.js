@@ -59,7 +59,7 @@ export function createAIController({
       onRender();
       onEpisodeEnd({ episodes, successSteps: [...successSteps], episodeSteps: [...episodeSteps] });
     } else {
-      playerCtrl.movePlayer(newX, newY);
+      playerCtrl.movePlayer(nextPositionX, nextPositionY);
       onRender();
     }
 
