@@ -1,5 +1,7 @@
 # 🤖 Reinforcement Learning with Q-Table
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Online-brightgreen?logo=githubpages&logoColor=brightgreen)](https://52-projects-to-improve-my-skills.github.io/ReinforcementLearning-Q-table-/)
+
 **Read in [Español](README_ES.md)**
 
 ---

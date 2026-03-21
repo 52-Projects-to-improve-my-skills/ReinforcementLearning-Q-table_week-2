@@ -1,5 +1,7 @@
 # 🤖 Aprendizaje por Refuerzo con Q-Table
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Online-brightgreen?logo=githubpages&logoColor=brightgreen)](https://52-projects-to-improve-my-skills.github.io/ReinforcementLearning-Q-table-/)
+
 **Leer en [English](README.md)**
 
 ---
